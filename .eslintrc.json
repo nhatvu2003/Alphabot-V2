@@ -1,0 +1,47 @@
+{
+  "name": "eslint-config-alphabot",
+  "extends": [
+    "eslint:recommended"
+  ],
+  "env": {
+    "node": true,
+    "es2022": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 2022,
+    "sourceType": "module"
+  },
+  "rules": {
+    "no-console": "off",
+    "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+    "prefer-const": "error",
+    "no-var": "error",
+    "object-shorthand": "error",
+    "prefer-template": "error",
+    "template-curly-spacing": "error",
+    "quotes": ["error", "single", { "avoidEscape": true }],
+    "semi": ["error", "always"],
+    "indent": ["error", 2],
+    "comma-dangle": ["error", "never"],
+    "eol-last": "error",
+    "no-trailing-spaces": "error",
+    "space-before-function-paren": ["error", "never"],
+    "keyword-spacing": "error",
+    "space-infix-ops": "error",
+    "brace-style": ["error", "1tbs"],
+    "curly": "error",
+    "eqeqeq": ["error", "always"],
+    "no-eval": "error",
+    "no-implied-eval": "error",
+    "no-new-func": "error",
+    "no-script-url": "error",
+    "prefer-promise-reject-errors": "error",
+    "handle-callback-err": "error"
+  },
+  "globals": {
+    "global": "readonly",
+    "process": "readonly",
+    "__dirname": "readonly",
+    "__filename": "readonly"
+  }
+}

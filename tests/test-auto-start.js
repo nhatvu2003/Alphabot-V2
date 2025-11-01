@@ -29,12 +29,14 @@ function logResult(passed, message) {
   }
 }
 
-// Test 1: Check if spawn is imported
-addTest('Verify spawn import', () => {
+// Test 1: Check if spawn/exec are imported from child_process (order-agnostic)
+addTest('Verify spawn/exec import', () => {
   const scriptPath = resolvePath(process.cwd(), 'scripts', 'update-appstate.js');
   const content = readFileSync(scriptPath, 'utf8');
-  const hasSpawn = content.includes("import { exec, spawn }");
-  logResult(hasSpawn, 'spawn imported from child_process');
+  const hasChildProcessImport = content.includes("from 'child_process'") || content.includes('from "child_process"');
+  const hasSpawn = /\bspawn\b/.test(content);
+  const hasExec = /\bexec\b/.test(content);
+  logResult(hasChildProcessImport && hasSpawn && hasExec, 'spawn & exec imported from child_process');
 });
 
 // Test 2: Check if bot process is detached

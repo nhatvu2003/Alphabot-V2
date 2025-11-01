@@ -78,8 +78,20 @@ function getCommandName(commandName) {
   return null
 }
 
+function checkCommandPermissions(requiredPermissions, userPermissions) {
+  // Convert user permissions to permission levels
+  const permissionLevels = [];
+  
+  if (userPermissions.includes('user')) permissionLevels.push(0);
+  if (userPermissions.includes('mod') || userPermissions.includes('thread_admin')) permissionLevels.push(1);
+  if (userPermissions.includes('admin') || userPermissions.includes('supper_admin')) permissionLevels.push(2);
+  
+  // Check if user has any of the required permissions
+  return requiredPermissions.some(reqPerm => permissionLevels.includes(reqPerm));
+}
+
 async function Running({
-  message, args, getLang, userPermissions, prefix
+  message, args, getLang, userPermissions, prefix, data
 }) {
   const {
     commandsConfig
@@ -92,10 +104,12 @@ async function Running({
     for (const [key, value] of commandsConfig.entries()) {
       if (!!value.isHidden) continue;
       if (!!value.isAbsolute ? !(global.config?.ABSOLUTES || []).some(e => e == message.senderID) : false) continue;
-      if (!value.hasOwnProperty("permissions")) value.permissions = [0,
-        1,
-        2];
-      if (!value.permissions.some(p => userPermissions.includes(p))) continue;
+      if (!value.hasOwnProperty("permissions")) value.permissions = [0, 1, 2];
+      
+      // Check permissions properly
+      const hasPermission = checkCommandPermissions(value.permissions, userPermissions);
+      if (!hasPermission) continue;
+      
       if (!commands.hasOwnProperty(value.category)) commands[value.category] = [];
       commands[value.category].push(value._name && value._name[language] ? value._name[language] : key);
     }
@@ -117,7 +131,7 @@ async function Running({
 
     const isHidden = !!command.isHidden;
     const isUserValid = !!command.isAbsolute ? global.config?.ABSOLUTES.some(e => e == message.senderID) : true;
-    const isPermissionValid = command.permissions.some(p => userPermissions.includes(p));
+    const isPermissionValid = checkCommandPermissions(command.permissions, userPermissions);
     if (isHidden || !isUserValid || !isPermissionValid)
       return message.reply(getLang("help.commandNotExists", {
         command: commandName

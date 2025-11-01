@@ -5,7 +5,7 @@
  */
 
 import express from 'express';
-import { readFileSync, writeFileSync, existsSync } from 'fs';
+import { readFileSync, writeFileSync, existsSync, unlinkSync } from 'fs';
 import { resolve as resolvePath } from 'path';
 import { spawn, exec } from 'child_process';
 import { mkdirSync } from 'fs';
@@ -15,6 +15,13 @@ import { promisify } from 'util';
 const execAsync = promisify(exec);
 
 const app = express();
+
+// Single-instance lock path shared with main index.js
+const BOT_LOCK_PATH = resolvePath(process.cwd(), 'data', 'bot.lock');
+
+function isProcessRunning(pid) {
+  try { process.kill(pid, 0); return true; } catch (_) { return false; }
+}
 
 // Termux Detection & Port Configuration
 function isTermux() {
@@ -256,6 +263,21 @@ app.post('/api/update',async (req, res) => {
       
       // Choose entry point based on environment
       const entryPoint = isTermux() ? 'index.js' : 'src/core/Gbot.js';
+      // Respect existing lock to avoid double starts
+      try {
+        if (existsSync(BOT_LOCK_PATH)) {
+          const pidStr = readFileSync(BOT_LOCK_PATH, 'utf8').trim();
+          const oldPid = Number(pidStr);
+          if (!Number.isNaN(oldPid) && isProcessRunning(oldPid)) {
+            console.log(`[APP] Bot already running (PID ${oldPid}). Skipping spawn.`);
+            throw new Error('BOT_ALREADY_RUNNING');
+          } else {
+            try { unlinkSync(BOT_LOCK_PATH); } catch (_) {}
+          }
+        }
+      } catch (e) {
+        if (e && e.message === 'BOT_ALREADY_RUNNING') throw e; // bubble up to skip spawn but not crash request
+      }
       
       // Spawn bot process detached so it continues running even after response
       const botProcess = spawn('node', [
@@ -270,16 +292,25 @@ app.post('/api/update',async (req, res) => {
         env: {
           ...process.env,
           // Termux optimization: reduce memory overhead
-          NODE_OPTIONS: process.env.NODE_OPTIONS || '--max-old-space-size=256'
+          NODE_OPTIONS: process.env.NODE_OPTIONS || '--max-old-space-size=256',
+          LOG_LEVEL: process.env.LOG_LEVEL || 'INFO'
         }
       });
       
       // Unref so parent process can exit without waiting for child
       botProcess.unref();
+      // Write lock only if we directly spawned Gbot (index.js will handle its own lock)
+      if (entryPoint === 'src/core/Gbot.js') {
+        try { writeFileSync(BOT_LOCK_PATH, String(botProcess.pid)); } catch (_) {}
+      }
       
       console.log(`[APP] Bot spawned with PID: ${botProcess.pid}`);
     } catch (e) {
-      console.error(`[APP] Failed to start bot:`, e.message || e);
+      if (e && e.message === 'BOT_ALREADY_RUNNING') {
+        console.log('[APP] Bot start skipped: already running.');
+      } else {
+        console.error(`[APP] Failed to start bot:`, e.message || e);
+      }
     }
 
     res.json({
@@ -358,6 +389,21 @@ app.post('/api/update-cookies', (req, res) => {
       console.log(`[APP] Starting bot for user ${userID}...`);
       
       const entryPoint = isTermux() ? 'index.js' : 'src/core/Gbot.js';
+      // Respect existing lock to avoid double starts
+      try {
+        if (existsSync(BOT_LOCK_PATH)) {
+          const pidStr = readFileSync(BOT_LOCK_PATH, 'utf8').trim();
+          const oldPid = Number(pidStr);
+          if (!Number.isNaN(oldPid) && isProcessRunning(oldPid)) {
+            console.log(`[APP] Bot already running (PID ${oldPid}). Skipping spawn.`);
+            throw new Error('BOT_ALREADY_RUNNING');
+          } else {
+            try { unlinkSync(BOT_LOCK_PATH); } catch (_) {}
+          }
+        }
+      } catch (e) {
+        if (e && e.message === 'BOT_ALREADY_RUNNING') throw e;
+      }
       
       const botProcess = spawn('node', [
         '--trace-warnings',
@@ -370,14 +416,22 @@ app.post('/api/update-cookies', (req, res) => {
         stdio: 'ignore',
         env: {
           ...process.env,
-          NODE_OPTIONS: process.env.NODE_OPTIONS || '--max-old-space-size=256'
+          NODE_OPTIONS: process.env.NODE_OPTIONS || '--max-old-space-size=256',
+          LOG_LEVEL: process.env.LOG_LEVEL || 'INFO'
         }
       });
       
       botProcess.unref();
+      if (entryPoint === 'src/core/Gbot.js') {
+        try { writeFileSync(BOT_LOCK_PATH, String(botProcess.pid)); } catch (_) {}
+      }
       console.log(`[APP] Bot spawned with PID: ${botProcess.pid}`);
     } catch (e) {
-      console.error(`[APP] Failed to start bot:`, e.message || e);
+      if (e && e.message === 'BOT_ALREADY_RUNNING') {
+        console.log('[APP] Bot start skipped: already running.');
+      } else {
+        console.error(`[APP] Failed to start bot:`, e.message || e);
+      }
     }
 
     res.json({
