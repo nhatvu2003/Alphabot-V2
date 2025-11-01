@@ -1,0 +1,19 @@
+{
+  "botID": "100006462752972",
+  "uptime": 2443,
+  "commands": 30,
+  "events": 6,
+  "onMessage": 2,
+  "online": true,
+  "lastUpdate": 1762007592222,
+  "memory": {
+    "rss": 100081664,
+    "heapTotal": 46632960,
+    "heapUsed": 44146104,
+    "external": 23991741,
+    "arrayBuffers": 20215971
+  },
+  "platform": "win32",
+  "nodeVersion": "v22.20.0",
+  "pid": 18512
+}

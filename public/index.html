@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AlphaBot – Control Panel</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    :root{ --bg:#0b1220; --card:#0f172a; --muted:#94a3b8; --text:#e2e8f0; --primary:#6366f1; --primary2:#8b5cf6; --accent:#22d3ee; --success:#22c55e; --danger:#ef4444; --warn:#f59e0b; }
+    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif; background: radial-gradient(1200px 500px at 10% -10%, rgba(99,102,241,.25), transparent), radial-gradient(1200px 500px at 90% -10%, rgba(139,92,246,.25), transparent), var(--bg); color: var(--text); min-height:100vh; display:flex; align-items:center; justify-content:center; padding:20px; }
+    .container { max-width:1000px; width:100%; background:linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02)); border-radius:20px; box-shadow:0 20px 60px rgba(0,0,0,0.35); overflow:hidden; border:1px solid rgba(255,255,255,0.06) }
+    .header { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:18px 24px; background:linear-gradient(90deg, rgba(99,102,241,.25), rgba(139,92,246,.25)); color:#fff; border-bottom:1px solid rgba(255,255,255,.06) }
+  .header { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:18px 28px; background:linear-gradient(90deg,#764ba2,#667eea); color:#fff; }
+  .brand { display:flex; gap:14px; align-items:center; }
+  .logo { font-size:30px; padding:8px 10px; background:rgba(255,255,255,0.08); border-radius:10px; box-shadow: inset 0 0 20px rgba(255,255,255,.06)}
+  .header h1 { font-size:20px; margin:0; }
+  .subtitle { margin:0; font-size:12px; opacity:0.9 }
+  .header-actions { display:flex; gap:10px; align-items:center }
+  .toggle { appearance:none; width:46px; height:26px; border-radius:20px; background:rgba(255,255,255,.15); position:relative; outline:none; cursor:pointer; border:1px solid rgba(255,255,255,.18) }
+  .toggle:before{ content:""; position:absolute; width:20px; height:20px; border-radius:50%; left:3px; top:2px; background:#fff; transition:all .25s ease }
+  .toggle:checked:before{ left:22px; background:linear-gradient(90deg, var(--primary), var(--primary2)) }
+  .small { padding:6px 10px; font-size:13px }
+  .main-grid { display:grid; grid-template-columns:320px 1fr; gap:24px; padding:24px; }
+  .status-card { background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)); border-radius:14px; padding:18px; border:1px solid rgba(255,255,255,.06); box-shadow:0 8px 30px rgba(17,12,46,0.25); }
+    .status-card h3 { color:#e2e8f0; margin-bottom:10px; font-size:18px; }
+  .status-info { display:grid; grid-template-columns: repeat(2,1fr); gap:12px; margin-top:12px; }
+    .status-item { display:flex; flex-direction:column; }
+    .status-label { font-size:12px; color:#94a3b8; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:5px; }
+    .status-value { font-size:16px; font-weight:700; color:#e2e8f0; }
+  .card-footer { margin-top:12px; }
+  .tabs { display:flex; gap:8px; border-bottom:0px solid transparent; margin-bottom:14px; }
+    .tab { flex:1; padding:12px 14px; text-align:center; cursor:pointer; background:rgba(255,255,255,.06); border:1px solid rgba(255,255,255,.08); border-radius:12px; font-size:15px; font-weight:600; color:#cbd5e1; transition:all .25s; position:relative; }
+  .tab.active { background: linear-gradient(90deg,var(--primary),var(--primary2)); color:#fff; border-color:transparent }
+    .tab-content { display:none; }
+    .tab-content.active { display:block; }
+    .form-group { margin-bottom:20px; }
+    .form-group label { display:block; font-size:14px; font-weight:700; color:#e2e8f0; margin-bottom:8px; }
+  .form-group textarea { width:100%; min-height:180px; padding:12px; border:1px solid rgba(255,255,255,0.12); border-radius:12px; font-size:14px; font-family:'Courier New', monospace; transition:border-color .25s, background .25s; resize:vertical; background:rgba(15,23,42,.65); color:#e2e8f0 }
+    .form-group textarea:focus { outline:none; border-color:var(--primary); background:rgba(15,23,42,.85) }
+    .form-group input { width:100%; padding:12px; border:1px solid rgba(255,255,255,0.12); border-radius:10px; font-size:14px; transition:border-color .25s, background .25s; background:rgba(15,23,42,.65); color:#e2e8f0 }
+    .form-group input:focus { outline:none; border-color:var(--primary); background:rgba(15,23,42,.85) }
+    .hint { font-size:12px; color:#94a3b8; margin-top:5px; }
+    .btn { width:100%; padding:14px; border:none; border-radius:10px; font-size:15px; font-weight:700; cursor:pointer; transition:all .25s; display:flex; align-items:center; justify-content:center; gap:8px; }
+  .btn-primary { background: linear-gradient(90deg,var(--primary),var(--primary2)); color:white; box-shadow:0 8px 20px rgba(99,102,241,0.18) }
+    .btn-primary:hover { transform:translateY(-2px); box-shadow: 0 10px 22px rgba(99,102,241,0.3); }
+    .btn-secondary { background:rgba(255,255,255,.06); color:#e2e8f0; border:1px solid rgba(255,255,255,.12); }
+    .btn-secondary:hover { background:rgba(255,255,255,.1); }
+    .btn:disabled { opacity:0.5; cursor:not-allowed; }
+    .alert { padding:15px; border-radius:10px; margin-bottom:20px; display:none; }
+    .alert.show { display:block; }
+    .alert-success { background:rgba(34,197,94,.15); color:#bbf7d0; border-left:4px solid #22c55e; }
+    .alert-error { background:rgba(239,68,68,.15); color:#fecaca; border-left:4px solid #ef4444; }
+    .alert-info { background:rgba(34,211,238,.15); color:#cffafe; border-left:4px solid #22d3ee; }
+    .footer { background:rgba(255,255,255,.04); padding:20px; text-align:center; font-size:12px; color:#94a3b8; border-top:1px solid rgba(255,255,255,.06); }
+    .loading { display:none; text-align:center; padding:20px; }
+    .loading.show { display:block; }
+    .spinner { border:3px solid rgba(255,255,255,.12); border-top:3px solid var(--primary); border-radius:50%; width:40px; height:40px; animation:spin 1s linear infinite; margin:0 auto; }
+    @keyframes spin { 0%{transform:rotate(0deg);} 100%{transform:rotate(360deg);} }
+    .guide { background:rgba(251,191,36,.12); border:1px solid rgba(251,191,36,.35); border-radius:10px; padding:15px; margin-bottom:20px; }
+  .guide h4 { color:#fde68a; margin-bottom:10px; font-size:14px; }
+    .guide ol { margin-left:20px; color:#fcd34d; font-size:13px; line-height:1.6; }
+    .guide ol li { margin-bottom:5px; }
+  .panel { background: linear-gradient(180deg, rgba(255,255,255,.05), rgba(255,255,255,.02)); padding:18px; border-radius:14px; box-shadow:0 8px 30px rgba(17,12,46,0.25); border:1px solid rgba(255,255,255,.06) }
+  .admin-list { list-style:none; padding-left:0 }
+  .admin-list li { display:flex; align-items:center; justify-content:space-between; gap:12px; padding:8px 10px; border-radius:10px; background: rgba(255,255,255,.04); margin-bottom:8px; border:1px solid rgba(255,255,255,.06) }
+  @media (max-width:900px){ .main-grid{ grid-template-columns:1fr; } .status-card{ order:2 } .panel{ order:1 } }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="brand">
+        <div class="logo">🤖</div>
+        <div>
+          <h1>AlphaBot</h1>
+          <p class="subtitle">Control Panel — Appstate • Admins • Config</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <label style="display:flex;align-items:center;gap:8px;color:#cbd5e1;font-size:12px">
+          <span>Dark</span>
+          <input id="darkToggle" class="toggle" type="checkbox" aria-label="Toggle dark mode" />
+        </label>
+        <button id="testLoginBtn" class="btn btn-primary small" onclick="testLogin()" aria-label="Test login">🔑 Test Login</button>
+      </div>
+    </header>
+
+    <main class="main-grid">
+      <aside class="status-card">
+        <h3>Status</h3>
+        <div class="status-info">
+          <div class="status-item">
+            <div class="status-label">Appstate</div>
+            <div id="statusValue" class="status-value">—</div>
+          </div>
+          <div class="status-item">
+            <div class="status-label">User ID</div>
+            <div id="userIdValue" class="status-value">—</div>
+          </div>
+          <div class="status-item">
+            <div class="status-label">Cookies</div>
+            <div id="cookiesValue" class="status-value">—</div>
+          </div>
+          <div class="status-item">
+            <div class="status-label">Last Modified</div>
+            <div id="lastModifiedValue" class="status-value">—</div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <small class="hint">Use the forms to update appstate. Automatic login will start after update.</small>
+        </div>
+      </aside>
+
+      <section class="panel">
+  <div id="alert" class="alert" role="status" aria-live="polite"></div>
+        <div id="loading" class="loading"><div class="spinner"></div><p style="margin-top:10px;color:#718096;">Processing...</p></div>
+
+        <div class="tabs" role="tablist" aria-label="Appstate tabs">
+          <button type="button" class="tab active" onclick="switchTab('json', event)" aria-controls="jsonTab" role="tab" aria-selected="true">📄 Appstate (JSON)</button>
+          <button type="button" class="tab" onclick="switchTab('config', event)" aria-controls="configTab" role="tab" aria-selected="false">⚙️ Config</button>
+        </div>
+
+        <div id="jsonTab" class="tab-content active">
+          <div class="guide"><h4>📖 How to get Appstate JSON:</h4><ol><li>Install extension: <strong>EditThisCookie</strong> or <strong>Cookie-Editor</strong></li><li>Login to Facebook</li><li>Click extension icon → Export cookies as JSON</li><li>Paste the JSON below</li></ol></div>
+          <form id="jsonForm">
+            <div class="form-group">
+              <label>Appstate JSON</label>
+              <textarea id="appstateJson" placeholder='[{"key":"c_user","value":"...","domain":"facebook.com",...}]' required></textarea>
+              <div class="hint">Paste your appstate JSON array here</div>
+            </div>
+            <div class="form-group">
+              <label>Import from file</label>
+              <input id="appstateFile" type="file" accept="application/json" />
+              <div class="hint">Chọn file appstate.json đã xuất từ trình duyệt</div>
+            </div>
+            <button type="submit" class="btn btn-primary"><span>✅</span><span>Update Appstate</span></button>
+            <div style="display:flex;gap:10px;margin-top:10px">
+              <button type="button" class="btn btn-secondary" onclick="previewAppstate()">👁️ Preview (masked)</button>
+              <button type="button" class="btn btn-secondary" onclick="downloadAppstate()">⬇️ Download</button>
+            </div>
+          </form>
+        </div>
+
+
+        
+        <div id="configTab" class="tab-content">
+          <div class="guide"><h4>⚙️ Edit config (Form)</h4><p class="hint">Edit common configuration fields. Fields not shown will be preserved.</p></div>
+          <form id="configForm">
+            <div class="form-group">
+              <label>Appstate Path</label>
+              <input id="cfg_appstate_path" type="text" placeholder="./data/appstate.json" />
+            </div>
+            <div class="form-group">
+              <label>Appstate Protection</label>
+              <label><input id="cfg_appstate_protection" type="checkbox" /> Enable protection</label>
+            </div>
+            <div class="form-group">
+              <label>Prefix</label>
+              <input id="cfg_prefix" type="text" placeholder="/" />
+            </div>
+            <div class="form-group">
+              <label>Timezone</label>
+              <input id="cfg_timezone" type="text" placeholder="Asia/Ho_Chi_Minh" />
+            </div>
+            <div class="form-group">
+              <label>Moderators</label>
+              <div style="display:flex;gap:8px;margin-bottom:8px;"><input id="cfg_moderator_input" placeholder="Add moderator ID" /><button id="addModeratorBtn" type="button" class="btn btn-secondary">Add</button></div>
+              <ul id="cfg_moderators_list" class="admin-list"></ul>
+            </div>
+            <div class="form-group">
+              <label>Absolutes</label>
+              <div style="display:flex;gap:8px;margin-bottom:8px;"><input id="cfg_absolute_input" placeholder="Add absolute ID" /><button id="addAbsoluteBtn" type="button" class="btn btn-secondary">Add</button></div>
+              <ul id="cfg_absolutes_list" class="admin-list"></ul>
+            </div>
+            <button type="submit" class="btn btn-primary"><span>💾</span><span>Save config</span></button>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer"><p>AlphaBot v2.0 — Made with ❤️ by NhatCoder • <a href="/" style="color:#a5b4fc;text-decoration:none">Docs</a></p></footer>
+  </div>
+  <script>
+    window.addEventListener('DOMContentLoaded', loadStatus);
+    // Dark toggle persistence
+    const darkToggle = document.getElementById('darkToggle');
+    try {
+      const pref = localStorage.getItem('alphabot_dark');
+      if (pref === '1') darkToggle.checked = true;
+      darkToggle?.addEventListener('change', ()=>{
+        localStorage.setItem('alphabot_dark', darkToggle.checked ? '1' : '0');
+        document.body.style.filter = darkToggle.checked ? 'invert(0)' : 'none';
+      });
+    } catch(e){}
+    function switchTab(tab, ev) {
+      // event may be undefined when called programmatically
+      document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+      document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
+      const target = ev && ev.target ? ev.target : document.querySelector(`.tab[aria-controls="${tab}Tab"]`);
+      if (target) target.classList.add('active');
+      const tabContent = document.getElementById(tab + 'Tab');
+      if (tabContent) tabContent.classList.add('active');
+  // Admin tab removed
+      if (tab === 'config') loadConfig();
+    }
+    // Load file into textarea
+    document.getElementById('appstateFile')?.addEventListener('change', async (e)=>{
+      const file = e.target.files?.[0]; if (!file) return;
+      const text = await file.text();
+      document.getElementById('appstateJson').value = text;
+      showAlert('📄 Đã nạp nội dung từ file', 'info');
+    });
+    // Admin UI removed
+
+    // config load/save (form)
+    let currentConfig = {};
+    async function loadConfig() {
+      try {
+        const res = await fetch('/api/config');
+        const j = await res.json();
+        if (j.success) {
+          currentConfig = j.config || {};
+          document.getElementById('cfg_appstate_path').value = currentConfig.APPSTATE_PATH || '';
+          document.getElementById('cfg_appstate_protection').checked = !!currentConfig.APPSTATE_PROTECTION;
+          document.getElementById('cfg_prefix').value = currentConfig.PREFIX || '';
+          document.getElementById('cfg_timezone').value = currentConfig.timezone || '';
+          // populate moderators
+          const mods = Array.isArray(currentConfig.MODERATORS) ? currentConfig.MODERATORS.map(String) : [];
+          const abs = Array.isArray(currentConfig.ABSOLUTES) ? currentConfig.ABSOLUTES.map(String) : [];
+          const modsList = document.getElementById('cfg_moderators_list'); modsList.innerHTML = '';
+          mods.forEach((m, idx) => {
+            const li = document.createElement('li'); li.textContent = m;
+            const btn = document.createElement('button'); btn.className='btn btn-secondary'; btn.textContent='Remove'; btn.style.marginLeft='8px'; btn.onclick = async ()=>{ mods.splice(idx,1); renderModerators(mods); };
+            li.appendChild(btn); modsList.appendChild(li);
+          });
+          const absList = document.getElementById('cfg_absolutes_list'); absList.innerHTML = '';
+          abs.forEach((a, idx) => {
+            const li = document.createElement('li'); li.textContent = a;
+            const btn = document.createElement('button'); btn.className='btn btn-secondary'; btn.textContent='Remove'; btn.style.marginLeft='8px'; btn.onclick = async ()=>{ abs.splice(idx,1); renderAbsolutes(abs); };
+            li.appendChild(btn); absList.appendChild(li);
+          });
+        } else { showAlert('❌ ' + (j.message || 'Failed to load config'), 'error'); }
+      } catch (e) { showAlert('❌ Error loading config: ' + e.message, 'error'); }
+    }
+
+    function renderModerators(list){ const el=document.getElementById('cfg_moderators_list'); el.innerHTML=''; list.forEach((m,idx)=>{ const li=document.createElement('li'); li.textContent=m; const btn=document.createElement('button'); btn.className='btn btn-secondary'; btn.textContent='Remove'; btn.onclick=()=>{ list.splice(idx,1); renderModerators(list); }; li.appendChild(btn); el.appendChild(li);}); }
+    function renderAbsolutes(list){ const el=document.getElementById('cfg_absolutes_list'); el.innerHTML=''; list.forEach((m,idx)=>{ const li=document.createElement('li'); li.textContent=m; const btn=document.createElement('button'); btn.className='btn btn-secondary'; btn.textContent='Remove'; btn.onclick=()=>{ list.splice(idx,1); renderAbsolutes(list); }; li.appendChild(btn); el.appendChild(li);}); }
+
+    document.getElementById('addModeratorBtn').addEventListener('click', ()=>{ const v=document.getElementById('cfg_moderator_input').value.trim(); if(!v) return; const list=Array.from(document.querySelectorAll('#cfg_moderators_list li')).map(x=>x.firstChild.textContent); list.push(v); renderModerators(list); document.getElementById('cfg_moderator_input').value=''; });
+    document.getElementById('addAbsoluteBtn').addEventListener('click', ()=>{ const v=document.getElementById('cfg_absolute_input').value.trim(); if(!v) return; const list=Array.from(document.querySelectorAll('#cfg_absolutes_list li')).map(x=>x.firstChild.textContent); list.push(v); renderAbsolutes(list); document.getElementById('cfg_absolute_input').value=''; });
+
+    document.getElementById('configForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      showLoading(true); hideAlert();
+      try {
+        const cfg = JSON.parse(JSON.stringify(currentConfig || {}));
+        cfg.APPSTATE_PATH = document.getElementById('cfg_appstate_path').value || cfg.APPSTATE_PATH;
+        cfg.APPSTATE_PROTECTION = document.getElementById('cfg_appstate_protection').checked;
+        cfg.PREFIX = document.getElementById('cfg_prefix').value || cfg.PREFIX;
+        cfg.timezone = document.getElementById('cfg_timezone').value || cfg.timezone;
+        // collect moderators/absolutes
+        cfg.MODERATORS = Array.from(document.querySelectorAll('#cfg_moderators_list li')).map(li=>li.firstChild.textContent);
+        cfg.ABSOLUTES = Array.from(document.querySelectorAll('#cfg_absolutes_list li')).map(li=>li.firstChild.textContent);
+
+        const r = await fetch('/api/config', { method: 'POST', headers: {'Content-Type':'application/json'}, body: JSON.stringify({ config: cfg }) });
+        const j = await r.json();
+        if (j.success) { showAlert('✅ config saved', 'success'); currentConfig = cfg; } else { showAlert('❌ ' + j.message, 'error'); }
+      } catch (err) { showAlert('❌ ' + err.message, 'error'); }
+      showLoading(false);
+    });
+    function maskCookie(str) {
+      if (!str) return '-';
+      try {
+        const s = String(str);
+        if (s.length <= 24) return s;
+        return s.slice(0, 8) + '…' + s.slice(-8);
+      } catch (e) { return '-'; }
+    }
+
+    async function loadStatus() {
+      try {
+        const response = await fetch('/api/status');
+        const data = await response.json();
+        if (data.exists) {
+          document.getElementById('statusValue').textContent = '✅ Active';
+          document.getElementById('statusValue').style.color = '#38a169';
+          document.getElementById('userIdValue').textContent = data.userID || '-';
+          document.getElementById('cookiesValue').textContent = maskCookie(data.cookies) || '-';
+          document.getElementById('lastModifiedValue').textContent = data.lastModified || '-';
+        } else {
+          document.getElementById('statusValue').textContent = '❌ Not Found';
+          document.getElementById('statusValue').style.color = '#e53e3e';
+        }
+      } catch (error) { showAlert('Error loading status: ' + error.message, 'error'); }
+    }
+    document.getElementById('jsonForm').addEventListener('submit', async (e)=>{
+      e.preventDefault();
+      const appstateJson = document.getElementById('appstateJson').value;
+      showLoading(true); hideAlert();
+      try {
+        const response = await fetch('/api/update', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ appstate: appstateJson }) });
+        const data = await response.json();
+  if (data.success) { showAlert('✅ ' + data.message + '\n👤 User ID: ' + data.userID + '\n🍪 Cookies: ' + maskCookie(data.cookies), 'success'); document.getElementById('appstateJson').value = ''; loadStatus(); } else { showAlert('❌ ' + data.message, 'error'); }
+      } catch (error) { showAlert('❌ Error: ' + error.message, 'error'); } finally { showLoading(false); }
+    });
+    async function previewAppstate(){
+      try {
+        const res = await fetch('/api/appstate');
+        const j = await res.json();
+        if (!j.success) return showAlert('❌ ' + (j.message||'Cannot preview'), 'error');
+        const summary = `👤 User: ${j.userID||'-'}\n🍪 Cookies: ${j.count||0}\n🗓️ Updated: ${j.lastModified||'-'}`;
+        showAlert('🔎 Preview (masked)\n' + summary, 'info');
+      } catch(e){ showAlert('❌ ' + e.message, 'error'); }
+    }
+    async function downloadAppstate(){
+      try {
+        const a = document.createElement('a');
+        a.href = '/api/appstate/download';
+        a.download = 'appstate.json';
+        document.body.appendChild(a); a.click(); a.remove();
+      } catch(e){ showAlert('❌ ' + e.message, 'error'); }
+    }
+    async function testLogin() { showLoading(true); hideAlert(); try { const response = await fetch('/api/test-login', { method:'POST', headers:{'Content-Type':'application/json'} }); const data = await response.json(); if (data.success) showAlert('✅ ' + data.message, 'success'); else showAlert('❌ ' + data.message + '\n' + (data.error || ''), 'error'); } catch (error) { showAlert('❌ Error: ' + error.message, 'error'); } finally { showLoading(false); } }
+    function showAlert(message, type) { const alert = document.getElementById('alert'); alert.className = 'alert alert-' + type + ' show'; alert.textContent = message; setTimeout(()=>{ hideAlert(); }, 5000); }
+    function hideAlert() { document.getElementById('alert').classList.remove('show'); }
+    function showLoading(show) { 
+      document.getElementById('loading').classList.toggle('show', show); 
+      document.getElementById('jsonForm').style.display = show ? 'none' : 'block'; 
+      document.getElementById('configForm').style.display = show ? 'none' : 'block'; 
+      document.getElementById('testLoginBtn').disabled = show; 
+    }
+  </script>
+</body>
+</html>

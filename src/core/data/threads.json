@@ -1,0 +1,63 @@
+{
+    "1378980410308543": {
+        "threadID": "1378980410308543",
+        "info": {
+            "threadID": "1378980410308543",
+            "unreadCount": 1,
+            "messageCount": 153,
+            "timestamp": "1761487024571",
+            "muteUntil": null,
+            "isGroup": true,
+            "isSubscribed": true,
+            "isArchived": false,
+            "folder": "INBOX",
+            "cannotReplyReason": null,
+            "eventReminders": [],
+            "emoji": null,
+            "color": null,
+            "threadTheme": null,
+            "nicknames": {},
+            "adminIDs": [
+                "100006462752972"
+            ],
+            "approvalMode": false,
+            "approvalQueue": [],
+            "reactionsMuteMode": "reactions_not_muted",
+            "mentionsMuteMode": "mentions_not_muted",
+            "isPinProtected": false,
+            "relatedPageThread": null,
+            "name": null,
+            "snippet": "/key",
+            "snippetSender": "61574084812526",
+            "snippetAttachments": [],
+            "serverTimestamp": "1761487024571",
+            "imageSrc": null,
+            "isCanonicalUser": false,
+            "isCanonical": false,
+            "recipientsLoadable": true,
+            "hasEmailParticipant": false,
+            "readOnly": false,
+            "canReply": true,
+            "lastMessageType": "message",
+            "lastReadTimestamp": "1761487007430",
+            "threadType": 2,
+            "inviteLink": {
+                "enable": false,
+                "link": ""
+            },
+            "members": [
+                {
+                    "userID": "61550046351760"
+                },
+                {
+                    "userID": "61574084812526"
+                },
+                {
+                    "userID": "100006462752972"
+                }
+            ]
+        },
+        "data": {},
+        "lastUpdated": 1761492392808
+    }
+}

@@ -1,0 +1,33 @@
+{
+  "chuilientuc": {
+    "DELAY": 2000,
+    "DELAY_THREAD": 60000
+  },
+  "chuilientuc2": {
+    "DELAY": 2000,
+    "DELAY_THREAD": 60000
+  },
+  "chuilientuc3": {
+    "DELAY": 2000,
+    "DELAY_THREAD": 60000
+  },
+  "chuilientuc4": {
+    "DELAY": 2000,
+    "DELAY_THREAD": 60000
+  },
+  "gonhay": {
+    "time": 2000,
+    "delay": 2000
+  },
+  "spam": {
+    "time": 2000,
+    "delay": 2000
+  },
+  "spamv2": {
+    "time": 2000
+  },
+  "taobox": {
+    "delay": 450,
+    "maxGroups": 20
+  }
+}

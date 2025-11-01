@@ -1,0 +1,52 @@
+{
+    "name": "nv-fca",
+    "version": "2.0.2",
+    "description": "A node.js package for automating Facebook Messenger bot, and is one of the most advanced next-generation Facebook Chat API (FCA) by @NethWs3Dev (Kenneth Aceberos)",
+    "keywords": [
+        "facebook",
+        "chat",
+        "api",
+        "fca",
+        "ws3",
+        "ws3-chat-api",
+        "ws3-fca"
+    ],
+    "homepage": "https://github.com/NethWs3Dev/ws3-fca#readme",
+    "bugs": {
+        "url": "https://github.com/NethWs3Dev/ws3-fca/issues"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/NethWs3Dev/ws3-fca.git"
+    },
+    "license": "MIT",
+    "author": "Kenneth Aceberos",
+    "type": "commonjs",
+    "main": "index.js",
+    "scripts": {
+        "start": "node index.js"
+    },
+    "dependencies": {
+        "axios": "^1.6.5",
+        "chalk": "^3.0.0",
+        "cheerio": "^0.22.0",
+        "gradient-string": "^1.1.0",
+        "https-proxy-agent": "^4.0.0",
+        "mqtt": "^3.0.0",
+        "node-cron": "^3.0.3",
+        "request": "^2.88.2",
+        "websocket-stream": "^5.5.0"
+    },
+    "devDependencies": {
+        "eslint": "^7.5.0",
+        "mocha": "^7.0.1",
+        "prettier": "^1.11.1"
+    },
+    "engines": {
+        "node": ">=10.x"
+    },
+    "social": {
+        "github": "https://github.com/NethWs3Dev",
+        "facebook": "https://www.facebook.com/kennethaceberos"
+    }
+}

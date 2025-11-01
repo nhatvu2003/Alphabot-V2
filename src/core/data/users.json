@@ -1,0 +1,56 @@
+{
+    "61550046351760": {
+        "userID": "61550046351760",
+        "info": {
+            "id": "61550046351760",
+            "name": "NHaT MY",
+            "firstName": "MY",
+            "vanity": "",
+            "url": "https://www.facebook.com/profile.php?id=61550046351760",
+            "thumbSrc": "https://graph.facebook.com/61550046351760/picture?type=large&width=500&height=500&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662",
+            "profileUrl": "https://scontent.fsgn2-10.fna.fbcdn.net/v/t39.30808-1/366703833_122113006262001545_7148082921803185467_n.jpg?stp=c0.0.302.302a_cp0_dst-jpg_s60x60_tt6&_nc_cat=109&ccb=1-7&_nc_sid=e99d92&_nc_eui2=AeF5aM22-L4gLloobRBPxuURXHWWMiM__VVcdZYyIz_9VYx8EwcJT3IS239cd7W5lZ2vnhYKdBhVOzcW8wccyWj2&_nc_ohc=4HsheImIxCsQ7kNvwFputy8&_nc_oc=AdlIKeLxv4btLRU7ZSshAF6_AenkJMDo9ldNWA3lxde6gExaeqa57r_Y-RZ1b9-74S36jxAg8Co4yQJadye9ZNWZ&_nc_zt=24&_nc_ht=scontent.fsgn2-10.fna&_nc_gid=2VmvbNhYaK0xrPGTP92h2Q&oh=00_AfcLbYAqQYBeoFHvK3ahc6e43mUHhBbR7AqNYYyb7C6kRw&oe=6903E32E",
+            "gender": "MALE",
+            "type": "User",
+            "isFriend": true,
+            "isBirthday": false
+        },
+        "data": {},
+        "lastUpdated": 1761492392808
+    },
+    "61574084812526": {
+        "userID": "61574084812526",
+        "info": {
+            "id": "61574084812526",
+            "name": "Quỷ Sầu",
+            "firstName": "Sầu",
+            "vanity": "thatsat.projav",
+            "url": "https://www.facebook.com/thatsat.projav",
+            "thumbSrc": "https://graph.facebook.com/61574084812526/picture?type=large&width=500&height=500&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662",
+            "profileUrl": "https://scontent.fsgn2-4.fna.fbcdn.net/v/t39.30808-1/483106096_122100152096802827_1998887480526038107_n.jpg?stp=c0.0.775.775a_cp0_dst-jpg_s60x60_tt6&_nc_cat=101&ccb=1-7&_nc_sid=e99d92&_nc_eui2=AeGsMkNX1wcrwSF4VN2AngXTRVAJ9NPzSkNFUAn00_NKQzQAeQpTrC4jogasooZRsxjXyBZiZHbb7P-R7CTpqW3v&_nc_ohc=Mr-wIVfttQAQ7kNvwGLEKY4&_nc_oc=Adl3dtcbXG8UzYqJzCbReRuOSRCdIj5Qdb97K9B7ZQbjUZE_DwWbQdqtaeFC9kG3mDiygW-1va6wMXfsKfmuMmqm&_nc_zt=24&_nc_ht=scontent.fsgn2-4.fna&_nc_gid=2VmvbNhYaK0xrPGTP92h2Q&oh=00_AfdQC9jcuURdGIPrpkKFCsk3BP4UbVCV4XfY--9oE5gdjQ&oe=6903E798",
+            "gender": "MALE",
+            "type": "User",
+            "isFriend": true,
+            "isBirthday": false
+        },
+        "data": {},
+        "lastUpdated": 1761492392808
+    },
+    "100006462752972": {
+        "userID": "100006462752972",
+        "info": {
+            "id": "100006462752972",
+            "name": "Nhat Vu",
+            "firstName": "Nhat",
+            "vanity": "vuminhnhat10092003",
+            "url": "https://www.facebook.com/vuminhnhat10092003",
+            "thumbSrc": "https://graph.facebook.com/100006462752972/picture?type=large&width=500&height=500&access_token=6628568379%7Cc1e620fa708a1d5696fb991c1bde5662",
+            "profileUrl": "https://scontent.fsgn2-3.fna.fbcdn.net/v/t1.30497-1/453178253_471506465671661_2781666950760530985_n.png?stp=cp0_dst-png_s60x60&_nc_cat=1&ccb=1-7&_nc_sid=136b72&_nc_eui2=AeGzrAn74g3Ic_9E72gvvyjkWt9TLzuBU1Ba31MvO4FTUKI7VNtLgiNiqcHFF8CcaO0qhIPHE2FQm0U01olDWbZS&_nc_ohc=owXgrBh0NC4Q7kNvwEUCrLm&_nc_oc=AdnszlG-fxWgfLn7kzaNy2cNuB1xwng7jkrgcuGAOzxqK9DThnWnYeTDvb3vzkLxMDeLxNrdMOu6BjPQqXbxfXzG&_nc_zt=24&_nc_ht=scontent.fsgn2-3.fna&oh=00_AfeOBOIR_BdWTHdicaNO4A1YBY64Iq9mIW2pdhtDW2H5gQ&oe=6925A6FA",
+            "gender": "MALE",
+            "type": "User",
+            "isFriend": false,
+            "isBirthday": false
+        },
+        "data": {},
+        "lastUpdated": 1761492392808
+    }
+}

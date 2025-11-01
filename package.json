@@ -1,0 +1,108 @@
+{
+  "name": "Alphabot-V2",
+  "version": "2.0.0",
+  "description": "Professional Facebook bot framework optimized for Termux",
+  "main": "index.js",
+  "type": "module",
+  "engines": {
+    "node": ">=22.20.0"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "cleanup": "node scripts/cleanup.js",
+    "ui": "node scripts/update-appstate.js",
+    "update": "node update.js",
+    "update:dry": "node update.js --dry-run",
+    "bot": "node --trace-warnings --experimental-import-meta-resolve --expose-gc src/core/Gbot.js"
+  },
+  "keywords": [
+    "facebook",
+    "bot",
+    "chatbot",
+    "termux",
+    "messenger",
+    "automation",
+    "fca",
+    "nodejs"
+  ],
+  "author": {
+    "name": "NhatCoder",
+    "email": "nhatcoder@example.com",
+    "url": "https://github.com/nhatvu2003"
+  },
+  "contributors": [
+    {
+      "name": "Community Contributors",
+      "url": "https://github.com/nhatvu2003/Alphabot-V2/graphs/contributors"
+    }
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/nhatvu2003/Alphabot-V2#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nhatvu2003/Alphabot-V2.git"
+  },
+  "bugs": {
+    "url": "https://github.com/nhatvu2003/Alphabot-V2/issues",
+    "email": "support@Alphabot-V2.com"
+  },
+  "dependencies": {
+    "axios": "^1.6.0",
+    "express": "^4.18.0",
+    "node-fetch": "^3.3.0",
+    "cors": "^2.8.5",
+    "chalkercli": "1.6.4",
+    "moment-timezone": "^0.5.43",
+    "mongoose": "^7.3.1",
+    "gradient-string": "^2.0.1",
+    "crypto-js": "4.2.0",
+    "node-cron": "4.2.1",
+    "semver": "^7.3.8",
+    "dotenv": "^16.3.1",
+    "js-yaml": "^4.1.0"
+  },
+  "devDependencies": {},
+  "optionalDependencies": {},
+  "peerDependencies": {},
+  "config": {
+    "termux": {
+      "optimized": true,
+      "memory_limit": "512m"
+    }
+  },
+  "termux": {
+    "optimized": true,
+    "platform": "android",
+    "memory": {
+      "recommended": "512MB",
+      "minimum": "256MB"
+    },
+    "node": {
+      "version": "22.20.0",
+      "flags": "--max-old-space-size=512"
+    }
+  },
+  "directories": {
+    "config": "config",
+    "data": "data",
+    "commands": "src/commands",
+    "events": "src/events",
+    "helpers": "src/core/helpers",
+    "models": "src/core/models"
+  },
+  "files": [
+    "index.js",
+    "src/",
+    "config/",
+    "scripts/",
+    "Shell/",
+    "README.md",
+    "LICENSE"
+  ],
+  "os": [
+    "android",
+    "linux",
+    "darwin",
+    "win32"
+  ]
+}

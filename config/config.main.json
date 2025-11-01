@@ -1,0 +1,57 @@
+{
+  "APPSTATE_PATH": "./data/appstate.json",
+  "APPSTATE_PROTECTION": true,
+  "AUTO_PING_SERVER": true,
+  "ALLOW_INBOX": true,
+  "DATABASE": "JSON",
+  "DATABASE_JSON_BEAUTIFY": true,
+  "FCA_OPTIONS": {
+    "selfListen": false,
+    "selfListenEvent": false,
+    "listenEvents": true,
+    "listenTyping": false,
+    "updatePresence": false,
+    "forceLogin": true,
+    "autoMarkDelivery": true,
+    "autoMarkRead": false,
+    "autoReconnect": true,
+    "online": true,
+    "emitReady": false,
+    "userAgent": "Mozilla/5.0 (Linux; Android 11; SM-A515F) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.120 Mobile Safari/537.36",
+    "randomUserAgent": false
+  },
+  "LANGUAGE": "vi_VN",
+  "LOG_LEVEL": 1,
+  "MODERATORS": [
+    "61574084812526",
+    "100067436964377"
+  ],
+  "ABSOLUTES": [
+    "61574084812526"
+  ],
+  "NAME": "Alphabot V2 - CHIẾN THẦN SÀN WAR",
+  "PREFIX": "/",
+  "timezone": "Asia/Ho_Chi_Minh",
+  "REFRESH": "43200000",
+  "GBOTWAR_OPTIONS": {
+    "WEBVIEW": false,
+    "LISTEN_CONSOLE": true,
+    "REGBOX_AMOUNT": 100,
+    "NOTIFICATION_DISPLAY": false,
+    "ALERT_UPDATE": false,
+    "TERMUX_OPTIMIZED": false
+  },
+  "GBOTWAR_CONFIG": {
+    "OTP_KEY": "",
+    "REGBOX_AMOUNT": 100,
+    "APPSTATE_SECRET_KEY": ""
+  },
+  "GBOTWAR_MESSAGE": {
+    "notiWelecome": "Alphabot - Chiến Thần Sàn War xin chào các chiến binh!",
+    "notiApprove": "Yêu cầu của bạn đã được phê duyệt, hãy sử dụng lệnh /regbox để đăng ký box war.",
+    "notiAutoRegBox": "Đây là auto regbox",
+    "SPAM_STOP": "Tạm tha cho chúng mày đó",
+    "SPAM_START": "Spam đọ đi mấy con óc lồn bại trận!",
+    "GONHAY_STOP": "Chúng mày tuổi lồn mà nhây với tao"
+  }
+}
