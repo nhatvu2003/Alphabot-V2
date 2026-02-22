@@ -40,7 +40,7 @@ cd Alphabot-V2
 npm install
 
 # 3. Khởi động giao diện quản lý
-npm run web
+npm run start
 ```
 
 Sau đó mở trình duyệt và truy cập **`http://localhost:3000`**
