@@ -68,5 +68,5 @@ echo -e "${GREEN}${BOLD}━━━━━━━━━━━━━━━━━━�
 echo -e "${GREEN}${BOLD}  ✅  Cài đặt hoàn tất!${RESET}"
 echo -e "${GREEN}${BOLD}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${RESET}"
 echo ""
-echo -e "  Khởi động:  ${BOLD}npm run web${RESET}"
+echo -e "  Khởi động:  ${BOLD}npm run start${RESET}"
 echo ""
